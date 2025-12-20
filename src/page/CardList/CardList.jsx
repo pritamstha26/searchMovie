@@ -5,10 +5,9 @@ import { useNavigate } from "react-router-dom";
 export default function CardList() {
   const { data, isLoading } = useDataQuery("dat");
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/main");
+  const handleNavigate = (data) => {
+    navigate(`/main/${data.id}`);
   };
-  console.log(data);
   if (isLoading)
     return (
       <div className=" h-screen flex justify-center items-center">
@@ -18,7 +17,7 @@ export default function CardList() {
   return (
     <div>
       {data.map((val, index) => {
-        return <Card key={index} data={val} handleClick={handleClick} />;
+        return <Card key={index} data={val} handleClick={handleNavigate} />;
       })}
     </div>
   );
