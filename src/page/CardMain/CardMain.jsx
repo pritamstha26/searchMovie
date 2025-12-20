@@ -1,5 +1,16 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import useFetchById from "../../hooks/useFetchById";
+import Hero from "./Hero";
+import MovieDetails from "./MovieDetails";
 
 export default function CardMain() {
-  return <div>cardMain</div>;
+  const { id } = useParams();
+  const { data } = useFetchById(id);
+  return (
+    <main>
+      <Hero data={data} />
+      <MovieDetails data={data} />
+    </main>
+  );
 }
