@@ -31,7 +31,7 @@ export default function Table({ data }) {
   ];
   return (
     <table className=" w-full">
-      <tbody>
+      <tbody className="">
         {movieDetails.map((details, index) => {
           return <TableRow key={index} details={details} />;
         })}
