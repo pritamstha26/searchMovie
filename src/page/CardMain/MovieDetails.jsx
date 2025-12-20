@@ -5,17 +5,17 @@ import Rating from "../../components/Rating/Rating";
 export default function MovieDetails({ data }) {
   return (
     <section className="container mx-auto p-10 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 bg-[#f8f8f8]">
-      <div className="w-full md:w-auto lg:w-full   flex  ">
+      <div className="w-full md:w-auto lg:w-full ">
         <img
           src={`https://image.tmdb.org/t/p/w500/${data?.backdrop_path}`}
           alt=""
-          className="aspect-square mx-auto object-cover  max-w-xs lg:w-full"
+          className="w-full mx-auto max-w-xs object-cover h-full lg:w-full"
         />
       </div>
       <div className="col-span-2  flex flex-col justify-between  ">
         <Table data={data} />
-        <div className="col-span-2 text-[#73787c] font-bold  ">
-          <h3 className="py-2">Average user rating:</h3>
+        <div className="col-span-2 ">
+          <h3>Average user rating:</h3>
 
           <Rating rating={data?.vote_average} />
         </div>

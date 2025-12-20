@@ -1,8 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import useDataQuery from "../../hooks/useDataQuery";
 import Card from "../../components/Card/Card";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import Button from "../../components/Button/Button";
+import axios from "axios";
 export default function CardList() {
+  const [keyword, setKeyword] = useState({
+    searchBar: "",
+  });
+  const [searchResult, setSearchResults] = useState([]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setKeyword((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (keyword.searchBar === "") return alert("Movie title required");
+      const api_key = import.meta.env.VITE_MOVIE_SEARCH_API;
+
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/search/movie?query=${keyword.searchBar}&api_key=${api_key}`
+      );
+      console.log(searchResult);
+      setSearchResults(() => response?.data.results);
+    } catch (error) {
+      console.log("error occured while searching movie");
+    }
+
+    setKeyword({ searchBar: "" });
+  };
   const { data, isLoading } = useDataQuery("dat");
   const navigate = useNavigate();
   const handleNavigate = (data) => {
@@ -14,11 +45,23 @@ export default function CardList() {
         <p className=" text-7xl">Loading...</p>
       </div>
     );
+  console.log(searchResult);
+  const movieToShow = searchResult.length > 0 ? searchResult : data;
+
   return (
-    <div>
-      {data.map((val, index) => {
-        return <Card key={index} data={val} handleClick={handleNavigate} />;
-      })}
+    <div className="">
+      <form
+        onSubmit={handleSubmit}
+        className="flex justify-center gap-2 items-center py-3"
+      >
+        <SearchBar keyword={keyword} handleChange={handleChange} />
+        <Button type="submit" label="search" />
+      </form>
+      <div>
+        {movieToShow.map((val, index) => {
+          return <Card key={index} data={val} handleClick={handleNavigate} />;
+        })}
+      </div>
     </div>
   );
 }
