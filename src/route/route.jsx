@@ -1,22 +1,20 @@
 import CardList from "../page/CardList/CardList";
 import CardMain from "../page/CardMain/CardMain";
+import NotFound from "../page/NotFound/NotFound";
 
 const router = [
   {
-    path: "/home",
+    path: "/",
     element: <CardList />,
   },
   {
-    path: "/main",
+    path: "/main/:id",
     element: <CardMain />,
   },
+
   {
-    path: "/home",
-    element: <CardList />,
-  },
-  {
-    path: "/home",
-    element: <CardList />,
+    path: "*",
+    element: <NotFound />,
   },
 ];
 
