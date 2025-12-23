@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useDataQuery from "../../hooks/useDataQuery";
 import Card from "../../components/Card/Card";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Button from "../../components/Button/Button";
 import axios from "axios";
@@ -9,6 +9,9 @@ export default function CardList() {
   const [keyword, setKeyword] = useState({
     searchBar: "",
   });
+  const location = useLocation();
+  console.log(location);
+
   const [searchResult, setSearchResults] = useState([]);
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +29,6 @@ export default function CardList() {
       const response = await axios.get(
         `https://api.themoviedb.org/3/search/movie?query=${keyword.searchBar}&api_key=${api_key}`
       );
-      console.log(searchResult);
       setSearchResults(() => response?.data.results);
     } catch (error) {
       console.log("error occured while searching movie");
@@ -45,7 +47,6 @@ export default function CardList() {
         <p className=" text-7xl">Loading...</p>
       </div>
     );
-  console.log(searchResult);
   const movieToShow = searchResult.length > 0 ? searchResult : data;
 
   return (
@@ -57,6 +58,7 @@ export default function CardList() {
         <SearchBar keyword={keyword} handleChange={handleChange} />
         <Button type="submit" label="search" />
       </form>
+
       <div>
         {movieToShow.map((val, index) => {
           return <Card key={index} data={val} handleClick={handleNavigate} />;

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import useFetchById from "../../hooks/useFetchById";
 import Hero from "./Hero";
 import MovieDetails from "./MovieDetails";
