@@ -5,6 +5,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Button from "../../components/Button/Button";
 import axios from "axios";
+import { ChevronUp } from "lucide-react";
 export default function CardList() {
   const [keyword, setKeyword] = useState({
     searchBar: "",
@@ -49,8 +50,11 @@ export default function CardList() {
     );
   const movieToShow = searchResult.length > 0 ? searchResult : data;
 
+  const handleToOrigin = () => {
+    window.scrollTo(0, 0);
+  };
   return (
-    <div className="">
+    <div className="relative">
       <form
         onSubmit={handleSubmit}
         className="flex justify-center gap-2 items-center py-3"
@@ -63,6 +67,11 @@ export default function CardList() {
         {movieToShow.map((val, index) => {
           return <Card key={index} data={val} handleClick={handleNavigate} />;
         })}
+      </div>
+      <div className="fixed bottom-8 right-5 bg-amber-400 rounded-full h-10 w-10 flex justify-center items-center">
+        <button onClick={handleToOrigin}>
+          <ChevronUp />
+        </button>
       </div>
     </div>
   );
