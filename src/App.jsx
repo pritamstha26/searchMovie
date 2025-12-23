@@ -9,7 +9,13 @@ export default function App() {
   return (
     <Routes>
       {router.map((rou, index) => {
-        return <Route key={index} path={rou.path} element={rou.element} />;
+        return (
+          <Route key={index} path={rou.path} element={rou.element}>
+            {rou?.children?.map((rt, index) => (
+              <Route key={index} path={rt.path} element={rt.element} />
+            ))}
+          </Route>
+        );
       })}
     </Routes>
   );

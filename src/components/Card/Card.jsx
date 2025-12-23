@@ -7,7 +7,7 @@ export default function Card({ data, handleClick }) {
       className=" flex flex-col md:flex-row mx-auto  my-4 w-full max-w-4xl bg-[#222222] overflow-hidden text-white rounded-2xl"
     >
       <div className=" md:w-1/2 lg:w-2/5    ">
-        <div className="aspect-[2/3] relative overflow-hidden">
+        <div className="aspect-2/3 relative overflow-hidden">
           <img
             src={`https://image.tmdb.org/t/p/w500/${data?.poster_path}`}
             alt=""

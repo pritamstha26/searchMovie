@@ -37,7 +37,7 @@ export default function CardList() {
   const { data, isLoading } = useDataQuery("dat");
   const navigate = useNavigate();
   const handleNavigate = (data) => {
-    navigate(`/main/${data.id}`);
+    navigate(`/home/${data.id}`);
   };
   if (isLoading)
     return (
