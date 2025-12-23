@@ -2,8 +2,7 @@ import React, { useRef } from "react";
 
 import { CircleStar } from "lucide-react";
 export default function Rating({ rating }) {
-  const stars = Math.floor(rating / 2);
-
+  const stars = (rating / 2).toFixed(1);
   return (
     <section className="">
       {Array.from({ length: 5 }).map((_, index) => {
