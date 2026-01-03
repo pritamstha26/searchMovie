@@ -6,13 +6,14 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import Button from "../../components/Button/Button";
 import axios from "axios";
 import { ChevronUp } from "lucide-react";
+import Pagination from "../../components/Pagination/Pagination";
 export default function CardList() {
   const [keyword, setKeyword] = useState({
     searchBar: "",
   });
-  const location = useLocation();
-  console.log(location);
-
+  const [startIndex, setStartIndex] = useState(0);
+  const [lastIndex, setLastIndex] = useState(5);
+  const [currentPage, setCurrentPage] = useState(3);
   const [searchResult, setSearchResults] = useState([]);
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,6 +42,15 @@ export default function CardList() {
   const navigate = useNavigate();
   const handleNavigate = (data) => {
     navigate(`/home/${data.id}`);
+  };
+  console.log(currentPage);
+  const maxItem = 5;
+  const totalPages = data?.length / maxItem;
+  const handlePageIncrement = () => {
+    setCurrentPage((prev) => prev + 1);
+  };
+  const handlePageDecrement = () => {
+    setCurrentPage((prev) => perv - 1);
   };
   if (isLoading)
     return (
@@ -72,6 +82,13 @@ export default function CardList() {
         <button onClick={handleToOrigin}>
           <ChevronUp />
         </button>
+      </div>
+      <div className="flex justify-center">
+        <Pagination
+          data={movieToShow}
+          handlePageIncrement={handlePageIncrement}
+          handlePageDecrement={handlePageDecrement}
+        />
       </div>
     </div>
   );
